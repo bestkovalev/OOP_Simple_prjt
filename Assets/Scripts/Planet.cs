@@ -20,6 +20,8 @@ public class Planet : SpaseObject
     {
         Rotation();
         Movement(centr, speed);
+        AddGrvity();
         
+
     }
 }

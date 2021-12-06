@@ -4,15 +4,20 @@ using UnityEngine;
 
 public abstract class SpaseObject : MonoBehaviour
 {
-    public int mass { get; private set; }
-    private List<GameObject> PlayerBodys = new List<GameObject>();
-    public int G = 10;
+    public float mass;
+    //private List<GameObject> PlayerBodys = new List<GameObject>();
+    public GameObject ship;
+    public int G = 1;
     protected float angle1 = 0;
 
     protected void OnEnable()
     {
-        mass = (int)gameObject.transform.lossyScale.magnitude * 100;
+        mass = (int)gameObject.transform.lossyScale.magnitude * 200;
+        ship = GameObject.Find("Ship");
+        Debug.Log(ship);
     }
+
+    
 
     protected virtual void Rotation()
     {
@@ -24,14 +29,16 @@ public abstract class SpaseObject : MonoBehaviour
         gameObject.transform.RotateAround(centr.transform.position, Vector3.up, speed* Time.deltaTime);
     }
 
-    private void AddGrvity()
+    protected void AddGrvity()
     {
-        foreach (GameObject body in PlayerBodys)
-        {
-            Vector3 heading = gameObject.transform.position - body.transform.position;
-            Rigidbody RB = body.GetComponent<Rigidbody>();
-            float forse = (mass * RB.mass) / heading.magnitude * G;
+       
+            Vector3 heading = gameObject.transform.position - ship.transform.position;
+            Rigidbody RB = ship.GetComponent<Rigidbody>();
+            float forse = (mass * RB.mass) / heading.magnitude / heading.magnitude * G;
             RB.AddForce(heading.normalized * forse * Time.deltaTime);
-        }
+            Debug.Log("forse added");
+        
     }
+
+   
 }

@@ -4,27 +4,23 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ShipBody : ShipPart
-{
-    public List<Vector3> connectionPoints { get; private set; }
+{    
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            foreach (Transform child in this.transform)
-            {
-                if (child.CompareTag("EnginePoint") || child.CompareTag("Thruster"))
-                {
-                    connectionPoints.Add(child.position);
-                }
-                
-            }
-        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    protected override void Selected()
+    {
+        base.Selected();
+        if (shipSc.body != null) { Destroy(shipSc.body);}        
+        ship.GetComponent<ShipScript>().body = Instantiate(gameObject, ship.transform.position, gameObject.transform.rotation, ship.transform);
     }
 }

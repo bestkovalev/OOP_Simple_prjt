@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class ShipPart : MonoBehaviour
 {
-    public float mass { get; protected set; }
-    
+    public float mass;
+    protected static GameObject ship;
+    protected static ShipScript shipSc;
+    public static Rigidbody Rbs;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,14 +23,16 @@ public class ShipPart : MonoBehaviour
         
     }
 
-    public virtual void Selected()
-    {
-        GameObject ship = GameObject.Find("Ship");
-        gameObject.transform.position = ship.transform.position;
-        transform.SetParent(ship.transform); 
+    protected virtual void Selected()
+    {       
+        ship = GameObject.Find("Ship");
+        shipSc = ship.GetComponent<ShipScript>();
+        Rbs = ship.GetComponent<Rigidbody>();
+        Rbs.mass += mass;
+
     }
 
-    private void OnMouseDown()
+    protected void OnMouseDown()
     {
         if (SceneManager.GetActiveScene().buildIndex == 0) { Selected(); }
         
