@@ -10,7 +10,7 @@ public class ThrustersScript : ShipPart
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetDone();
     }
 
     // Update is called once per frame

@@ -10,6 +10,7 @@ public class ShipPart : MonoBehaviour
     protected static GameObject ship;
     protected static ShipScript shipSc;
     public static Rigidbody Rbs;
+    protected static GameObject done;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,10 @@ public class ShipPart : MonoBehaviour
         shipSc = ship.GetComponent<ShipScript>();
         Rbs = ship.GetComponent<Rigidbody>();
         Rbs.mass += mass;
+        if (done != null)
+        {
+            done.SetActive(true);
+        }
 
     }
 
@@ -36,6 +41,12 @@ public class ShipPart : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0) { Selected(); }
         
+    }
+
+    protected void GetDone()
+    {
+        done = GameObject.Find("Launcher").GetComponent<Lauch>().doneButton;
+        Debug.Log(done);
     }
     
 }

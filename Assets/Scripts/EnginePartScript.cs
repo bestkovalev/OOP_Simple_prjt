@@ -15,11 +15,12 @@ public class EnginePartScript : ShipPart
         {
             if (child.gameObject.name == "Particles")
             {
-                particles = child.gameObject;
-                Debug.Log("PartFound");
+                particles = child.gameObject;                
             }
         }
         
+
+
     }
     
 
